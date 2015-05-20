@@ -25,4 +25,27 @@ class ApplicationTest < Minitest::Test
     assert true
   end
 
+  def test_associate_lesson_readings
+    history = Lesson.create(name: "History")
+    civil_war = Reading.create(caption: "War")
+    vietnam = Reading.create(caption: "Vietnam")
+    history.readings << civil_war
+    assert_equal "War", history.readings.last.caption
+  end
+
+  # def test_validate_that_schools_must_have_name
+  #   gallup_hill = School.new(name:"Gallup Hill")
+  #   school = School.new({})
+  #   assert gallup_hill.save
+  #   refute school.save
+  # end
+
+  #  def test_validate_terms_have_name_starts_on_ends_on_and_school_id
+  #    one = Term.new(name: "fall")
+  #    assert one.save
+  #    refute one.save
+  #  end
+
+
+
 end
