@@ -1,5 +1,6 @@
 class Lesson < ActiveRecord::Base
-  belongs_to :course 
+  belongs_to :course
+
   delegate :code_and_name, to: :course, prefix: true
 
   scope :roots, -> { where("parent_lesson_id IS NULL") }
@@ -7,6 +8,7 @@ class Lesson < ActiveRecord::Base
   scope :without_night_assignments, -> { where("night_assignment_id IS NULL") }
 
   after_save :update_cached_values
+  validates :name, presence: true
 
   def self.linked_to_assignment(assignment)
     found_lesson = where(pre_class_assignment_id: assignment.id).first

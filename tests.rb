@@ -70,4 +70,17 @@ class ApplicationTest < Minitest::Test
     assert_equal [science, math, english], green_school.courses
   end
 
+  # def test_assert_lessons_have_names
+  #   #come back to this one
+  #   taxes = Lesson.create(name: "Taxes")
+  #   # bills = Lesson.new(description: "how to pay bills to the man")
+  #
+  #   assert taxes.save
+  #   # refute bills.save
+  # end
+
+  def test_assert_reading_fields_populated
+    edgar_huntley = Reading.new(order_number: 5, lesson_id: 1, url: "something")
+    assert edgar_huntley.save
+  end
 end
