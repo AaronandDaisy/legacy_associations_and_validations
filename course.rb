@@ -1,7 +1,8 @@
 class Course < ActiveRecord::Base
+  belongs_to :term
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
-
+  validates :name, presence: true
   # Magic number also used in old? method below.
   scope :active, -> { includes(:term).where("terms.ends_on >= ?", Time.now - 1.month) }
 
