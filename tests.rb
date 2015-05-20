@@ -46,8 +46,14 @@ class ApplicationTest < Minitest::Test
     english = Course.create(name: "English")
     number_four = CourseStudent.create(student_id: 4, course_id: english.id)
     assert_equal english.id, number_four.course_id
-    p number_four
     refute english.destroy
+  end
+
+  def test_destroy_assignments_in_course
+    english = Course.create(name: "English")
+    reading = Assignment.create(name: "Reading", course_id: english.id)
+    assert_equal english.id, reading.course_id
+    assert english.destroy
   end
 
 end
