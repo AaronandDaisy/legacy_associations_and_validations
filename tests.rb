@@ -42,4 +42,12 @@ class ApplicationTest < Minitest::Test
     assert summer
   end
 
+  def test_dont_destroy_courses_if_students_present
+    english = Course.create(name: "English")
+    number_four = CourseStudent.create(student_id: 4, course_id: english.id)
+    assert_equal english.id, number_four.course_id
+    p number_four
+    refute english.destroy
+  end
+
 end
