@@ -2,9 +2,11 @@ class Course < ActiveRecord::Base
   belongs_to :term
   has_many :course_students, dependent: :restrict_with_error
   has_many :assignments, dependent: :destroy
+  has_many :lessons
+
+  validates :name, presence: true
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
-  validates :name, presence: true
   # Magic number also used in old? method below.
   scope :active, -> { includes(:term).where("terms.ends_on >= ?", Time.now - 1.month) }
 

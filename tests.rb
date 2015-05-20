@@ -56,4 +56,18 @@ class ApplicationTest < Minitest::Test
     assert english.destroy
   end
 
+  def test_associate_lessons_with_pre_class_assignments
+    #come back to this one
+  end
+
+  def test_school_has_many_courses
+    green_school = School.create(name: "Green_School")
+    summer = Term.create(name: "Summer", school_id: green_school.id)
+    english = Course.create(name: "English", term_id: summer.id)
+    math = Course.create(name: "Math", term_id: summer.id)
+    science = Course.create(name: "Science", term_id: summer.id)
+
+    assert_equal [science, math, english], green_school.courses
+  end
+
 end

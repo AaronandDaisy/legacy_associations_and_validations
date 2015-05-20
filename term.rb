@@ -1,5 +1,5 @@
 class Term < ActiveRecord::Base
-  belongs_to :school#, school_name: "School", foreign_key: "school_id"
+  belongs_to :school, class_name: "School", foreign_key: "school_id"
   has_many :courses, dependent: :restrict_with_error
   default_scope { order('ends_on DESC') }
 
