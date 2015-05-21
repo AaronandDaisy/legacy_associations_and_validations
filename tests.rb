@@ -33,12 +33,12 @@ class ApplicationTest < Minitest::Test
     assert_equal "War", history.readings.last.caption
   end
 
-  # def test_associate_lessons_with_courses
-  #   course = Course.create(name: "World History")
-  #   lesson = Lesson.create(name: "History")
-  #   course.lessons << lesson
-  #   assert_equal "History", course.lessons.last.name
-  # end
+  def test_associate_lessons_with_courses
+    course = Course.create(name: "World History", course_code: "SCI40")
+    lesson = Lesson.create(name: "History", course_id: world_history.id)
+    course.lessons << lesson
+    assert_equal "History", course.lessons.last.name
+  end
 
   # def test_associate_course_and_course_instructor
   #   course = Course.create(name: "World History")
