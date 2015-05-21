@@ -5,6 +5,7 @@ class Course < ActiveRecord::Base
   has_many :lessons
 
   validates :name, presence: true
+  validates :course_code, presence: true
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
   # Magic number also used in old? method below.

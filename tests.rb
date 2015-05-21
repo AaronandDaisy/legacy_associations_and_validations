@@ -36,14 +36,14 @@ class ApplicationTest < Minitest::Test
 
   def test_dont_destroy_terms
     summer = Term.create(name: "Summer")
-    english = Course.create(name: "English", term_id: summer.id)
+    english = Course.create(name: "English", term_id: summer.id, course_code: "eng123")
     assert_equal english.term_id, summer.id
     refute summer.destroy
     assert summer
   end
 
   def test_dont_destroy_courses_if_students_present
-    english = Course.create(name: "English")
+    english = Course.create(name: "English", course_code: "eng123" )
     number_four = CourseStudent.create(student_id: 4, course_id: english.id)
     assert_equal english.id, number_four.course_id
     refute english.destroy
@@ -63,11 +63,11 @@ class ApplicationTest < Minitest::Test
   def test_school_has_many_courses
     green_school = School.create(name: "Green_School")
     summer = Term.create(name: "Summer", school_id: green_school.id)
-    english = Course.create(name: "English", term_id: summer.id)
-    math = Course.create(name: "Math", term_id: summer.id)
-    science = Course.create(name: "Science", term_id: summer.id)
+    english = Course.create(name: "English", term_id: summer.id, course_code: "eng123")
+    math = Course.create(name: "Math", term_id: summer.id, course_code: "mat456")
+    science = Course.create(name: "Science", term_id: summer.id, course_code: "sci789")
 
-    assert_equal [science, math, english], green_school.courses
+    assert_equal [english, math, science], green_school.courses
   end
 
   # def test_assert_lessons_have_names
@@ -82,5 +82,12 @@ class ApplicationTest < Minitest::Test
   def test_assert_reading_fields_populated
     edgar_huntley = Reading.new(order_number: 5, lesson_id: 1, url: "something")
     assert edgar_huntley.save
+  end
+
+  def test_validates_courses_have_course_code
+    english = Course.new(name: "English", course_code: 1)
+    math = Course.new(color: "blue")
+    assert english.save
+    refute math.save
   end
 end
