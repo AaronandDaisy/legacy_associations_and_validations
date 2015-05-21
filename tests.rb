@@ -85,7 +85,7 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_validates_courses_have_course_code
-    english = Course.new(name: "English", course_code: 1)
+    english = Course.new(name: "English", course_code: "eng123")
     math = Course.new(color: "blue")
     assert english.save
     refute math.save
@@ -97,5 +97,15 @@ class ApplicationTest < Minitest::Test
 
     assert edgar_huntley.save
     refute earnest_hemmingway.save
+  end
+
+  def test_course_code_starts_with_letters_ends_with_digits
+    english = Course.new(name: "English", course_code: "eng123")
+    math = Course.new(name: "Math", course_code: "mat456")
+    science = Course.new(name: "Science", course_code: "789sci")
+
+    assert english.save
+    assert math.save
+    refute science.save
   end
 end
