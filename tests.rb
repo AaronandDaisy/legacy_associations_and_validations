@@ -66,7 +66,7 @@ class ApplicationTest < Minitest::Test
     english = Course.create(name: "English", term_id: summer.id, course_code: "eng123")
     math = Course.create(name: "Math", term_id: summer.id, course_code: "mat456")
     science = Course.create(name: "Science", term_id: summer.id, course_code: "sci789")
-
+    green_school.courses
     assert_equal [english, math, science], green_school.courses
   end
 
@@ -80,7 +80,7 @@ class ApplicationTest < Minitest::Test
   # end
 
   def test_assert_reading_fields_populated
-    edgar_huntley = Reading.new(order_number: 5, lesson_id: 1, url: "something")
+    edgar_huntley = Reading.new(order_number: 5, lesson_id: 1, url: "http://www.food.com")
     assert edgar_huntley.save
   end
 
@@ -89,5 +89,13 @@ class ApplicationTest < Minitest::Test
     math = Course.new(color: "blue")
     assert english.save
     refute math.save
+  end
+
+  def test_reading_url_starts_with_http_or_https
+    edgar_huntley = Reading.new(order_number: 5, lesson_id: 1, url: "http://www.food.com")
+    earnest_hemmingway = Reading.new(order_number: 5, lesson_id: 1)
+
+    assert edgar_huntley.save
+    refute earnest_hemmingway.save
   end
 end
