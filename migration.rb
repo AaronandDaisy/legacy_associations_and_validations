@@ -94,6 +94,7 @@ class ApplicationMigration < ActiveRecord::Migration
       t.integer  "pre_class_assignment_id"
       t.integer  "in_class_assignment_id"
       t.text     "slide_html"
+
     end
 
     create_table "readings", force: true do |t|

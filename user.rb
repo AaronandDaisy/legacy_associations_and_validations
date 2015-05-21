@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   scope :want_to_be_instructors, -> { where(wants_to_be_instructor: true) }
   scope :instructors_for_school_id, ->(school_id) { where(school_id: school_id, instructor: true) }
+  validates_format_of :email, :with => /\A\S+@.+\.\S+\z/
+
 
   default_scope { order('last_name, first_name') }
 
