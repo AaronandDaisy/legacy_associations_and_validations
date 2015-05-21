@@ -33,18 +33,22 @@ class ApplicationTest < Minitest::Test
     assert_equal "War", history.readings.last.caption
   end
 
-  def test_associate_lessons_with_courses
-    course = Course.create(name: "World History")
-    lesson = Lesson.create(name: "History")
-    course.lessons << lesson
-    assert_equal "History", course.lessons.last.name
-  end
+  # def test_associate_lessons_with_courses
+  #   course = Course.create(name: "World History")
+  #   lesson = Lesson.create(name: "History")
+  #   course.lessons << lesson
+  #   assert_equal "History", course.lessons.last.name
+  # end
 
   # def test_associate_course_and_course_instructor
   #   course = Course.create(name: "World History")
-  #   instructor = CourseInstructor.create(instructor_id: 3)
-  #   instructor << course
+  #   course = Course.create(name: "World History II")
+  #   course = Course.create(name: "American History")
+  #   instructor = CourseInstructor.create
+  #   instructor.courses << course
+  #   assert_equal "American History", instructor.courses.last.name
   # end
+
   def test_validate_that_schools_must_have_name
     gallup_hill = School.create(name:"Gallup Hill")
     school = School.create({})
@@ -60,8 +64,9 @@ class ApplicationTest < Minitest::Test
   #   lesson = Lesson.create(name: "Spanish")
   #   assignment = Assignment.create(name: "writing")
   #   lesson.assignments << assignment
-  #   # assert_equal "writing", lesson.assignments.last.name
+  #   assert_equal "writing", lesson.assignments.last.name
   # end
+
   def test_validate_email_is_unique
     doglover = User.create(email: "doglover@aol.com")
     dalmation_fan = User.create(email: "doglover@aol.com")
